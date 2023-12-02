@@ -61,7 +61,7 @@ program aoc02a
         end do
 
         ! print *, "ENDLOOP:", currLineNum, colorVals, trim(line)
-        if (minval(colorVals) >= 0) then
+        if (minval(colorVals) >= 0) then  ! If all values are positive, or valid
             total = total + currLineNum
             ! print *, "GOOD LINE:", currLineNum, colorVals, trim(line)
         end if

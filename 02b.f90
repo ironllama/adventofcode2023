@@ -21,7 +21,7 @@ program aoc02b
         i = index(line, ": ") + 1
         ! print *, "NEW:", currLineNum, ": ", i, len(trim(line)), trim(line)
         do while (i <= len(trim(line)))
-            i = i + 1
+            i = i + 1  ! Moved the incrementing to the top to make sure we process the final character when detecting end of line.
             ! print *, "PROCESSING: ", line(i:i)
 
             if (line(i:i) == "," .or. line(i:i) == ";" .or. i > len(trim(line))) then
@@ -39,7 +39,7 @@ program aoc02b
                 buffer = '';
                 colorNum = 0;
 
-                if (i > len(trim(line))) exit;
+                if (i > len(trim(line))) exit;  ! Dropping out after processing last char at end of line.
 
                 i = i + 1  ! Skip the space after delimiter
             else if (line(i:i) == " ") then
@@ -53,10 +53,11 @@ program aoc02b
             ! print *, "LOOP:", buffer, colorNum, colorVals, trim(line(i:))
         end do
 
-        power = colorVals(1) * colorVals(2) * colorVals(3)
+        ! power = colorVals(1) * colorVals(2) * colorVals(3)
+        power = product(colorVals)
         total = total + power
-        ! print *, "ENDLOOP:", currLineNum, power, colorVals, trim(line)
 
+        ! print *, "ENDLOOP:", currLineNum, power, colorVals, trim(line)
         currLineNum = currLineNum + 1
     end do
 
