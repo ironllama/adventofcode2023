@@ -12,7 +12,7 @@ program aoc03b
     character(len=150), dimension(:), allocatable :: lines
     character(len=150) :: buffer
     character(len=10), parameter :: numStrs = "0123456789"
-    integer :: status, row, col, pos, i, total
+    integer :: status, row, col, total
     type(Part), dimension(:), allocatable :: matches
 
     ! matches = [Part(0, 0, 0)]
