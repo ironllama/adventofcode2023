@@ -10,8 +10,7 @@ program aoc07b
     integer :: status, currBid, i, k, m, rank, total
     character(len=20) :: line
     character(len=5) :: currCards
-    type(Play), dimension(:), allocatable :: allPlays
-    type(Play), dimension(:), allocatable :: currRank
+    type(Play), dimension(:), allocatable :: allPlays, currRank
     character(len=5), dimension(:), allocatable :: currRankCards
     integer, dimension(:), allocatable :: currRankCardsOrder
 
@@ -21,11 +20,7 @@ program aoc07b
 
         read (line, *) currCards, currBid
         call getLexical(currCards)
-        if (allocated(allPlays)) then
-            allPlays = [allPlays, Play(currCards, currBid, getType(currCards))]
-        else
-            allPlays = [Play(currCards, currBid, getType(currCards))]
-        endif
+        call play_array_push(allPlays, Play(currCards, currBid, getType(currCards)))
     enddo
     ! print *, "ALL:"
     ! do i = 1, size(allPlays)
@@ -35,13 +30,9 @@ program aoc07b
     total = 0
     rank = 1
     do i = 1, 7  ! Go through all the types
-        do k = 1, size(allPlays)  ! Collect all hands of each types
+        do k = 1, size(allPlays)  ! Collect/filter all hands for each type
             if (allPlays(k)%type == i) then
-                if (allocated(currRank)) then
-                    currRank = [currRank, allPlays(k)]
-                else
-                    currRank = [allPlays(k)]
-                endif
+                call play_array_push(currRank, allPlays(k))
 
                 if (allocated(currRankCards)) then  ! For sorting, later...
                     currRankCards = [currRankCards, allPlays(k)%cards]
@@ -82,8 +73,18 @@ program aoc07b
     print *, "PART 1:", total
 
 contains
+    subroutine play_array_push(arr, item)
+        type(Play), dimension(:), allocatable, intent(inout) :: arr
+        type(Play), intent(in) :: item
+        if (allocated(arr)) then
+            arr = [arr, item]
+        else
+            arr = [item]
+        endif
+    endsubroutine
+
     function replace_text (s, text, rep) result(outs)
-        character(*), intent(in) :: s, text, rep
+        character(len=*), intent(in) :: s, text, rep
         integer :: i
         character(len=5) :: outs
 
