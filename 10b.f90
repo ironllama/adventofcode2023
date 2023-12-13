@@ -1,4 +1,4 @@
-program aoc10a
+program aoc10b
     implicit none
 
     type Coords
@@ -269,4 +269,4 @@ contains
         enddo
         ! print *, "PART 1:", stepNum / 2  ! Confirm
     endsubroutine
-end program aoc10a
+end program aoc10b
