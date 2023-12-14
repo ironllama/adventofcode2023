@@ -3,7 +3,7 @@ program aoc13b
     
     character(len=30), allocatable :: lines(:), origLines(:), tempLines(:)
     character(len=30) :: line
-    integer :: status, total, hPrev, vPrev, i, k, pos, m
+    integer :: status, total, hPrev, vPrev, i, k, pos
 
     total = 0
     do while(.not. is_iostat_end(status))
