@@ -5,3 +5,4 @@
 *.mjs
 *.py
 *.sam*
+*.out*
