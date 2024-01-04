@@ -9,7 +9,7 @@ program aoc22b
     integer :: status, i, pos, from(3), to(3), temp(3), total, k, m
     type(Block), allocatable :: allBlocks(:), compacted(:), tempAllBlocks(:), origCompacted(:), tempCompacted(:)
     type(Block) :: curr
-    character(len=17000) :: cKey, tempKey
+    character(len=17000) :: cKey
     real :: start, finish
 
     i = 1
