@@ -8,21 +8,19 @@ program aoc21b
     character(len=150) :: line
     character(len=150), allocatable :: lines(:)
     integer :: status, i, pos, steps, num, fLen, fMid
-    integer(kind=8) :: w, total = 0
+    integer(kind=8) :: w, total=0
     type(Coord) :: beg
 
     i = 1
     allocate(lines(0))
-    lines = ""
     do
         read (*, '(a)', iostat=status) line
         if (is_iostat_end(status)) exit
         ! print *, "LINE:[", trim(line), "]"
 
-        pos = index(line, "S")
+        pos = index(trim(line), "S")
         if (pos > 0) then
             beg = Coord(i, pos)
-            ! print *, "BEG:", beg
             line = line(1:pos-1) // "." // trim(line(pos+1:))
         endif
         lines = [lines, trim(line)]
@@ -33,9 +31,6 @@ program aoc21b
     ! do i=1, size(lines)
     !     print *, lines(i)
     ! enddo
-
-    ! pos = getValidSpots(beg, 64)
-    ! print *, "PART 1:", pos
 
     ! Most of this was done offline w/ calculator. But it started with the realization that the
     ! 26501365 steps was somehow significant. It is compatible with an whole number of "fields" to
@@ -123,10 +118,9 @@ contains
     integer function getValidSpots(beg, steps)
         type(Coord), intent(in) :: beg
         integer, intent(in) :: steps
-        type(Coord), target, allocatable :: allPos(:), nextPos(:)
+        type(Coord), allocatable :: allPos(:), nextPos(:)
         type(Coord) :: next, dirs(4) = [Coord(1, 0), Coord(0, 1), Coord(-1, 0), Coord(0, -1)]
         integer i, k, m
-        ! character(len=150) :: line
 
         allPos = [beg]
         do i=1, steps
@@ -161,5 +155,6 @@ contains
         ! enddo
 
         getValidSpots = size(allPos)
+        deallocate(allPos)
     endfunction
 end program aoc21b

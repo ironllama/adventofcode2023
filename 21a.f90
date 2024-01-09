@@ -9,8 +9,7 @@ program aoc21a
     character(len=150), allocatable :: lines(:)
     integer :: status, i, k, m, pos, numSteps=64
     type(Coord) :: beg, dirs(4), next
-    type(Coord), target, allocatable :: allPos(:), nextPos(:)
-    ! character, allocatable :: grid(:,:), tempGrid(:,:)
+    type(Coord), allocatable :: allPos(:), nextPos(:)
 
     i = 1
     allocate(lines(0))
@@ -22,7 +21,6 @@ program aoc21a
         pos = index(line, "S")
         if (pos > 0) then
             beg = Coord(i, pos)
-            ! print *, "BEG:", beg
             line = line(1:pos-1) // "." // trim(line(pos+1:))
         endif
         lines = [lines, line]
